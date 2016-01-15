@@ -17,3 +17,6 @@ Just because your app is not universal does not mean you should not prerender yo
 3. Make this it's own npm module
 4. Better error handling and messaging
 5. Tests and CI
+
+### NOTES:
+npm module is in active development, so please ignore index.js and prerender.js as it is not usable at the moment.  Currently you should configure the prerender.js in the root and run it via `node prerender`.
