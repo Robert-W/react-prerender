@@ -1,4 +1,4 @@
-# react-prerender
+# react-prerender [![Build Status](https://travis-ci.org/Robert-W/react-prerender.svg?branch=master)](https://travis-ci.org/Robert-W/react-prerender)
 > Simple node script to prerender react components.  This is designed to be used as a tool in the build process and can run right after Grunt/Gulp or any other build tools you use.
 
 ## Still Under Development
