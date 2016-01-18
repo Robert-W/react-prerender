@@ -2,9 +2,9 @@
   "name": "react-prerender",
   "version": "0.1.0",
   "description": "Simple node script to prerender react components. Designed to be used with AMD modules, even CDN modules not available at compile time.",
-  "main": "prerender.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint test/*.js; eslint lib/*.js; mocha --colors --reporter nyan"
   },
   "repository": {
     "type": "git",
@@ -30,5 +30,10 @@
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "requirejs": "^2.1.22"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "eslint": "^1.10.3",
+    "mocha": "^2.3.4"
   }
 }

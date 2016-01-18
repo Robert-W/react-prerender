@@ -1,22 +1,19 @@
 # react-prerender
->Simple node script to prerender react components.  This is designed to be used with projects using the AMD module loader.  You can configure paths, empty modules (cdn modules not present at runtime), input file and component, and output file.  You could also modify this to prerender multiple components to multiple files in one script.
+> Simple node script to prerender react components.  This is designed to be used as a tool in the build process and can run right after Grunt/Gulp or any other build tools you use.
+
+## Still Under Development
 
 ### Purpose
-Just because your app is not universal does not mean you should not prerender your components.  Static websites can and should prerender their components as well. In fact, any application rendering their UI from JavaScript should prerender because of the improved SEO and UX it offers.  This script can run after your Gulp/Grunt task to prerender your components and inject them into your html.
+Any application rendering their UI from javascript should prerender it's UI because of the improved SEO and UX it offers.  This script can fit right into your build process.  It will prender your React components and inject them into your html.  Even if you have lots of packages and/or aliases, or use modules that are not available locally at build time (CDN, or loaded via script tag), this script can be customized to help you require those components in node and render them to your page.
 
 ### Usage
->Note this is currently an internal tool still being developed and is used for all of my react projects.  There are example configurations in place with comments to explain how to configure the application until I have time to make this an npm module with better support and easier configurations.
 
-1. Copy the files or clone the repo
-2. `npm install` the files or `chmod 777 install.sh && ./install.sh`
-3. Configure prerender.js using the `config` variable near the top of the file.
+Coming Soon
 
-### Coming Soon
-1. Better documentation
-2. Easier configuration and use
-3. Make this it's own npm module
-4. Better error handling and messaging
-5. Tests and CI
+### Options
 
-### NOTES:
-npm module is in active development, so please ignore index.js and prerender.js as it is not usable at the moment.  Currently you should configure the prerender.js in the root and run it via `node prerender`.
+Coming Soon
+
+### Contributing
+
+If you are interested in contributing, please fork the develop branch. That is the branch with the latest changes in it and will be the most up to date.  No code will be merged unless the current tests pass, including linting.  Add documentation if you are adding a new feature and add tests where needed. When you are ready to merge your code, submit a pull request to the develop branch.

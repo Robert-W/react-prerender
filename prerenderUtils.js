@@ -50,7 +50,9 @@ module.exports = {
   * @return {string} html markup from prerendered component
   */
   generateMarkup: function (module) {
-    return ReactDomServer.renderToStaticMarkup(React.createFactory(module)());
+    var props = {};
+    var Component = React.createFactory(module);
+    return ReactDomServer.renderToStaticMarkup(Component(props));
   },
 
   /**
