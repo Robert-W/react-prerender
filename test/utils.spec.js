@@ -1,6 +1,8 @@
 /* eslint no-unused-expressions: 0 */
 var expect = require('chai').expect;
 var utils = require('../lib/utils');
+var sinon = require('sinon');
+var path = require('path');
 
 describe('utils - optionsAreValid', function () {
 
@@ -114,46 +116,105 @@ describe('utils - mapOptionsAreValid', function () {
 });
 
 describe('utils - loadBuildProfile', function () {
-  it('should determine from options if I can remap certain dependencies to a dependency free module', function () {
-    expect(true).to.be.ok;
+  it('should load a build profile and return a valid requirejs configuration', function () {
+    var profilePath = path.join(__dirname, '../samples/build.js');
+    var profile = utils.loadBuildProfile(profilePath);
+    expect(profile.baseUrl).to.be.ok;
+    expect(profile.paths).to.be.ok;
+    expect(profile.baseUrl).to.be.a('string');
+    expect(profile.paths).to.be.an('object');
   });
-  it('should throw an error informing the user of required options to generate the remap', function () {
-    expect(true).to.be.ok;
+
+  it('should return an empty object if no profile is found', function () {
+    var profile = utils.loadBuildProfile('../samples/some.non.existent.build.js');
+    expect(profile.baseUrl).to.not.be.ok;
+    expect(profile.paths).to.not.be.ok;
   });
+
 });
 
 describe('utils - generateRemap', function () {
+
+  var amdBaseDir = path.join(__dirname, '../samples/amd/js');
+  var expectedMap = { 'esri/map': 'js/config' };
+
   it('should generate a dictionary of dependencies mapped to the provided file', function () {
-    expect(true).to.be.ok;
+    var map = utils.generateRemap(amdBaseDir, 'js/config', ['esri/']);
+    for (var key in map) {
+      expect(expectedMap[key]).to.equal(map[key]);
+    }
   });
-  it('should only contain paths to files that match the ignore pattern', function () {
-    expect(true).to.be.ok;
+
+  it('should only contain paths to files that match an ignore string', function () {
+    var map = utils.generateRemap(amdBaseDir, 'js/config', ['esri/']);
+    expect(Object.keys(map)).to.have.length(1);
+    expect(Object.keys(map)[0]).to.equal('esri/map');
   });
-  it('should return false if no files match the pattern so the remap can be excluded later', function () {
-    expect(true).to.be.ok;
+
+  it('should only contain paths to files that match an ignore regular expression', function () {
+    var map = utils.generateRemap(amdBaseDir, 'js/config', /esri\//);
+    expect(Object.keys(map)).to.have.length(1);
+    expect(Object.keys(map)[0]).to.equal('esri/map');
   });
+
+  it('should only contain paths to files that match an array of strings', function () {
+    var map = utils.generateRemap(amdBaseDir, 'js/config', ['esri/']);
+    expect(Object.keys(map)).to.have.length(1);
+    expect(Object.keys(map)[0]).to.equal('esri/map');
+  });
+
+  it('should only contain paths to files that match an array of regular expression', function () {
+    var map = utils.generateRemap(amdBaseDir, 'js/config', [/esri\//]);
+    expect(Object.keys(map)).to.have.length(1);
+    expect(Object.keys(map)[0]).to.equal('esri/map');
+  });
+
+  it('should return an empty object if no files match the pattern', function () {
+    var map = utils.generateRemap(amdBaseDir, 'js/config', ['somethingNonExistent/']);
+    expect(Object.keys(map)).to.have.length(0);
+    expect(map).to.be.empty;
+  });
+
   it('should log a warning if no files match the pattern', function () {
-    expect(true).to.be.ok;
+    sinon.spy(console, 'warn');
+    var map = utils.generateRemap(amdBaseDir, 'js/config', ['somethingNonExistent/']);
+    expect(console.warn.called).to.be.true;
+    expect(Object.keys(map)).to.have.length(0);
+    expect(map).to.be.empty;
   });
+
 });
 
 describe('utils - generateMarkup', function () {
-  it('should generate a static string that is a valid representation of the component', function () {
-    expect(true).to.be.ok;
+
+  it('should throw an error if the markup can\'t be generated', function () {
+    try {
+      utils.generateMarkup({});
+    } catch (err) {
+      expect(err).to.be.ok;
+    }
   });
-  it('should throw a descriptive error if the markup can\'t be generated', function () {
-    expect(true).to.be.ok;
-  });
+
 });
 
 describe('utils - renderIntoFile', function () {
-  it('should render the provided markup into the specified html file in the correct location', function () {
-    expect(true).to.be.ok;
-  });
+
+  var htmlFile = path.join(__dirname, '../samples/amd/index.html');
+  var badFilePath = path.join(__dirname, '../samples/amd/bad.html');
+  var mockComponentOutput = '<div>My Component</div>';
+
   it('should throw an error if the provided file does not exist', function () {
-    expect(true).to.be.ok;
+    try {
+      utils.renderIntoFile(badFilePath, 'body', mockComponentOutput);
+    } catch (err) {
+      expect(err).to.be.ok;
+    }
   });
   it('should throw an error if the provided mount node does not exist', function () {
-    expect(true).to.be.ok;
+    try {
+      utils.renderIntoFile(htmlFile, '#badNode', mockComponentOutput);
+    } catch (err) {
+      expect(err).to.be.ok;
+    }
   });
 });

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="author" content="Robert-W">
+    <meta name="viewport" id="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="utf-8">
+    <style>
+/* line 54 : /Users/Robert/Projects/github/esri-flux-react/src/css/base.styl */
+
+/* line 1 : /Users/Robert/Projects/github/esri-flux-react/node_modules/gulp-stylus/node_modules/stylus/lib/functions/index.styl */
+
+/* line 1 : /Users/Robert/Projects/github/esri-flux-react/src/css/base.styl */
+/* Import Config and Commonly Used Functions */
+
+/* line 286 : /Users/Robert/Projects/github/esri-flux-react/node_modules/gulp-stylus/node_modules/stylus/lib/functions/index.styl */
+
+/* line 1 : /Users/Robert/Projects/github/esri-flux-react/src/css/config.styl */
+
+/* line 3 : /Users/Robert/Projects/github/esri-flux-react/src/css/base.styl */
+/* Common Classes */
+
+/* line 4 : /Users/Robert/Projects/github/esri-flux-react/src/css/base.styl */
+.hidden,
+.hideOnLoad {
+  display: none;
+}
+
+/* line 8 : /Users/Robert/Projects/github/esri-flux-react/src/css/base.styl */
+.clearfix {
+  clear: both;
+}
+
+/* line 11 : /Users/Robert/Projects/github/esri-flux-react/src/css/base.styl */
+.text-center {
+  text-align: center;
+}
+
+/* line 14 : /Users/Robert/Projects/github/esri-flux-react/src/css/base.styl */
+.pointer {
+  cursor: pointer;
+}
+
+/* line 17 : /Users/Robert/Projects/github/esri-flux-react/src/css/base.styl */
+.relative {
+  position: relative;
+}
+
+/* line 20 : /Users/Robert/Projects/github/esri-flux-react/src/css/base.styl */
+html,
+body,
+.react-root {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+/* line 29 : /Users/Robert/Projects/github/esri-flux-react/src/css/base.styl */
+body {
+  background: #ccc;
+  font-family: Cambria, Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+}
+
+/* line 33 : /Users/Robert/Projects/github/esri-flux-react/src/css/base.styl */
+.react-root {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+/* line 37 : /Users/Robert/Projects/github/esri-flux-react/src/css/base.styl */
+.app-header {
+  background: #4385f6;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50px;
+      -ms-flex: 0 0 50px;
+          flex: 0 0 50px;
+  color: #fff;
+  height: 50px;
+  z-index: 1;
+}
+
+/* line 44 : /Users/Robert/Projects/github/esri-flux-react/src/css/base.styl */
+.app-body {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 2;
+  -webkit-flex-grow: 2;
+      -ms-flex-positive: 2;
+          flex-grow: 2;
+}
+
+/* line 57 : /Users/Robert/Projects/github/esri-flux-react/src/css/config.styl */
+
+/* line 57 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+
+/* line 1 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+.loading-container {
+  position: absolute;
+  left: calc(50% - 50px);
+  top: calc(50% - 50px);
+  text-align: center;
+  height: 100px;
+  width: 100px;
+}
+
+/* line 9 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+.loader {
+  -webkit-animation: loader 1s ease infinite;
+  animation: loader 1s ease infinite;
+  border-right: 1px solid #4385f6;
+  border-top: 4px solid #4385f6;
+  border-radius: 100%;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  margin: 5px auto;
+  height: 64px;
+  width: 64px;
+}
+
+/* line 21 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+@-webkit-keyframes loader {
+
+/* line 22 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+/* line 18 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+
+/* line 18 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+@-webkit-keyframes loader {
+
+/* line 19 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+/* line 18 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+
+/* line 18 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+@keyframes loader {
+
+/* line 19 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+/* line 25 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+.loader-label {
+  -webkit-animation: fader 3s ease-in-out infinite;
+  animation: fader 3s ease-in-out infinite;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #000;
+  margin: 10px;
+  opacity: 0;
+}
+
+/* line 38 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+@-webkit-keyframes fader {
+
+/* line 39 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+  50% {
+    opacity: 1;
+  }
+
+/* line 41 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+  100% {
+    opacity: 0;
+  }
+}
+
+/* line 33 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+
+/* line 33 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+@-webkit-keyframes fader {
+
+/* line 34 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+  50% {
+    opacity: 1;
+  }
+
+/* line 36 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+  100% {
+    opacity: 0;
+  }
+}
+
+/* line 33 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+
+/* line 33 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+@keyframes fader {
+
+/* line 34 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+  50% {
+    opacity: 1;
+  }
+
+/* line 36 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+  100% {
+    opacity: 0;
+  }
+}
+
+/* line 42 : /Users/Robert/Projects/github/esri-flux-react/src/css/loader.styl */
+
+/* line 42 : /Users/Robert/Projects/github/esri-flux-react/src/css/header.styl */
+
+/* line 1 : /Users/Robert/Projects/github/esri-flux-react/src/css/header.styl */
+.app-title,
+.app-subtitle {
+  line-height: 25px;
+  padding: 0 10px;
+}
+
+/* line 6 : /Users/Robert/Projects/github/esri-flux-react/src/css/header.styl */
+.app-title {
+  font-size: 22px;
+}
+
+/* line 9 : /Users/Robert/Projects/github/esri-flux-react/src/css/header.styl */
+.app-subtitle {
+  font-size: 12px;
+}
+
+/* line 10 : /Users/Robert/Projects/github/esri-flux-react/src/css/header.styl */
+
+/* line 10 : /Users/Robert/Projects/github/esri-flux-react/src/css/map.styl */
+
+/* line 1 : /Users/Robert/Projects/github/esri-flux-react/src/css/map.styl */
+.map {
+  background: #ccc;
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 auto;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+  width: 100%;
+}
+
+/* line 7 : /Users/Robert/Projects/github/esri-flux-react/src/css/map.styl */
+.map .esriSimpleSlider {
+  right: 10px;
+  top: 10px;
+}
+
+/* line 9 : /Users/Robert/Projects/github/esri-flux-react/src/css/map.styl */
+
+/* line 9 : /Users/Robert/Projects/github/esri-flux-react/src/css/mapTools.styl */
+
+/* line 1 : /Users/Robert/Projects/github/esri-flux-react/src/css/mapTools.styl */
+.map-buttons {
+  border: 1px solid #555;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  position: absolute;
+  background: #fff;
+  height: 30px;
+  width: 30px;
+  z-index: 5;
+}
+
+/* line 10 : /Users/Robert/Projects/github/esri-flux-react/src/css/mapTools.styl */
+.basemap-gallery {
+  -webkit-transition: all 0.25s ease;
+          transition: all 0.25s ease;
+  right: 10px;
+  top: 80px;
+}
+
+/* line 14 : /Users/Robert/Projects/github/esri-flux-react/src/css/mapTools.styl */
+.basemap-gallery.open {
+  height: 250px;
+  width: 210px;
+}
+
+/* line 17 : /Users/Robert/Projects/github/esri-flux-react/src/css/mapTools.styl */
+.basemap-gallery.open .basemap-gallery-list {
+  display: block;
+}
+
+/* line 20 : /Users/Robert/Projects/github/esri-flux-react/src/css/mapTools.styl */
+.basemap-gallery-icon {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  right: 0;
+  top: 0;
+}
+
+/* line 28 : /Users/Robert/Projects/github/esri-flux-react/src/css/mapTools.styl */
+.basemap-gallery-list {
+  border-top: 1px solid #555;
+  position: absolute;
+  overflow-y: auto;
+  display: none;
+  padding: 0;
+  margin: 0;
+  top: 30px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+/* line 40 : /Users/Robert/Projects/github/esri-flux-react/src/css/mapTools.styl */
+.basemap-gallery-item {
+  border-bottom: 1px solid #555;
+  -webkit-transition: background 0.5s ease;
+          transition: background 0.5s ease;
+  padding: 0 0 0 60px;
+  height: 60px;
+}
+
+/* line 45 : /Users/Robert/Projects/github/esri-flux-react/src/css/mapTools.styl */
+.basemap-gallery-item.active,
+.basemap-gallery-item:hover {
+  background: #ddd;
+}
+
+/* line 48 : /Users/Robert/Projects/github/esri-flux-react/src/css/mapTools.styl */
+.basemap-gallery-item:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  border-bottom: none;
+}
+
+/* line 52 : /Users/Robert/Projects/github/esri-flux-react/src/css/mapTools.styl */
+.basemap-gallery-item-icon {
+  border: 1px solid #555;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  position: absolute;
+  height: 48px;
+  width: 48px;
+  left: 5px;
+  top: 5px;
+}
+
+/* line 61 : /Users/Robert/Projects/github/esri-flux-react/src/css/mapTools.styl */
+.basemap-gallery-item-label {
+  padding-left: 5px;
+  line-height: 60px;
+  font-size: 12px;
+}
+
+/* line 53 : /Users/Robert/Projects/github/esri-flux-react/src/css/base.styl */
+/* Import this last so we dont need important tags in it to override styles */
+
+/* line 64 : /Users/Robert/Projects/github/esri-flux-react/src/css/mapTools.styl */
+
+/* line 1 : /Users/Robert/Projects/github/esri-flux-react/src/css/media.styl */
+@media (max-width: 600px) {
+
+/* line 3 : /Users/Robert/Projects/github/esri-flux-react/src/css/media.styl */
+  .app-title {
+    line-height: 50px;
+  }
+
+/* line 6 : /Users/Robert/Projects/github/esri-flux-react/src/css/media.styl */
+  .app-subtitle,
+  .map .esriSimpleSlider {
+    display: none;
+  }
+
+/* line 10 : /Users/Robert/Projects/github/esri-flux-react/src/css/media.styl */
+  .map .basemap-gallery {
+    top: 10px;
+  }
+}
+@media (min-width: 600px) and (max-width: 1024px) {
+
+/* line 18 : /Users/Robert/Projects/github/esri-flux-react/src/css/media.styl */
+  .app-header {
+    background: #008000;
+  }
+}
+
+    </style>
+    <script>
+      var base = location.pathname.replace(/\/[^/]+$/, '');
+      var dojoConfig = {
+        parseOnLoad: false,
+        async: true,
+        cacheBust: '0.1.0',
+        packages: [
+          { name: 'js', location: base + 'js' },
+          { name: 'vendor', location: base + 'vendor' }
+        ],
+        aliases: [
+          ['react', 'vendor/react/react.min'],
+          ['react-dom', 'vendor/react/react-dom.min'],
+          ['babel-polyfill', 'vendor/babel-polyfill/browser-polyfill']
+        ],
+        deps: ['dojo/domReady!'],
+        callback: function () {require(['js/main']);}
+      };
+    </script>
+    <script src="http://js.arcgis.com/3.14/init.js" async></script>
+  </head>
+  <body>
+  </body>
+</html>
