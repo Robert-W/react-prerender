@@ -1,16 +1,16 @@
 # react-prerender [![Build Status](https://travis-ci.org/Robert-W/react-prerender.svg?branch=master)](https://travis-ci.org/Robert-W/react-prerender)
-> Simple node script to prerender react components.  This is designed to be used as a tool in the build process and can run right after Grunt/Gulp or any other build tools you use.
+> Simple node script to pre-render react components using AMD modules (commonjs support coming soon). This is designed to be used as a tool in the build process and can run right after Grunt/Gulp or any other build tools you use.
 
 #### Currently only supporting React > 0.14
 
 ### Purpose
-Any application rendering their UI from javascript should prerender it's UI because of the improved SEO and UX it offers.  This script will attempt to prender your React components in node and inject them into your html. The most difficult part of this process is requiring AMD components in node.  This script aims to help by allowing you to pass in a simple package configuration, so node knows how to find those modules, a list of patterns/modules to ignore, for plugins and hosted modules, props, export names for babel generated AMD modules, and more. Please refer to [Options](#Options) for a full list.
+Any application rendering their UI from javascript should pre-render it's UI because of the improved SEO and UX it offers, not just apps with a server component.  This script will attempt to pre-render your React components in node and inject them into your html as part of your build task and focuses on providing helpers for AMD module support. The most difficult part of this process is requiring AMD components in node.  This script aims to help by allowing you to pass in a simple package configuration, so node knows how to find those modules, a list of patterns/modules to ignore, for plugins and hosted modules, props, export names for babel generated AMD modules, and more. Please refer to [Options](#Options) for a full list.
 
 ### Usage
 
 #### Gotchas
 1. Currently only supporting React > `0.14.0`.
-2. Your components render functions cannot use any modules required via requirejs plugins, or cdn/empty modules that are not available at compile time. Modules that are not availble in the project's src will trip up this script when it attempts to require your component unless you tell this plugin to remap those modules. However, if they are used in your render function then this will probably not work or will at best render undefined.
+2. Your components render functions cannot use any modules required via requirejs plugins, or cdn/empty modules that are not available at compile time. Modules that are not available in the project's src will trip up this script when it attempts to require your component unless you tell this plugin to remap those modules. However, if they are used in your render function then this will probably not work or will at best render undefined.
 3. Common JS support coming soon.
 
 #### Examples
@@ -46,7 +46,7 @@ reactPrerender({
 });
 ```
 
-Here is another example for the same project that leverages a bulid profile instead of providing a baseUrl and paths object.
+Here is another example for the same project that leverages a build profile instead of providing a baseUrl and paths object.
 ```javascript
 var amdDir = path.join(__dirname, '../samples/amd');
 var target = path.join(amdDir, 'index.html');
