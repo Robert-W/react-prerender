@@ -8,7 +8,7 @@ describe('react-prerender', function () {
     expect(reactPrerender).to.be.a('function');
   });
 
-  it('should not throw an error when give proper configuration', function () {
+  it('should not throw an error when given proper configuration', function () {
     //- Assemble the necessary options
     var amdDir = path.join(__dirname, '../samples/amd');
     var target = path.join(amdDir, 'index.html');
