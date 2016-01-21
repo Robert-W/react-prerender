@@ -8,7 +8,7 @@ describe('react-prerender', function () {
     expect(reactPrerender).to.be.a('function');
   });
 
-  it('should not throw an error when given proper configuration', function () {
+  xit('should not throw an error when given proper configuration', function () {
     //- Assemble the necessary options
     var amdDir = path.join(__dirname, '../samples/amd');
     var target = path.join(amdDir, 'index.html');
@@ -24,6 +24,32 @@ describe('react-prerender', function () {
         'react-motion': 'vendor/react-motion/build/react-motion',
         'babel-polyfill': 'vendor/babel-polyfill/browser-polyfill'
       },
+      map: {
+        moduleRoot: path.join(amdDir, 'js'),
+        remapModule: 'js/config',
+        ignorePatterns: [/esri\//]
+      }
+    };
+
+    reactPrerender({
+      target: target,
+      component: component,
+      mount: mount,
+      exportName: exports,
+      requirejs: requirejs
+    });
+
+  });
+
+  it('should not throw an error when given proper configuration', function () {
+    //- Assemble the necessary options
+    var amdDir = path.join(__dirname, '../samples/amd');
+    var target = path.join(amdDir, 'index.html');
+    var component = 'js/layout/App';
+    var mount = 'body';
+    var exports = 'App';
+    var requirejs = {
+      buildProfile: path.join(amdDir, '../build.js'),
       map: {
         moduleRoot: path.join(amdDir, 'js'),
         remapModule: 'js/config',

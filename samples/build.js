@@ -1,6 +1,6 @@
 /* eslint-disable */
 ({
-  baseUrl: 'build',
+  baseUrl: 'samples/amd',
 	paths: {
 		// Empty Modules/Aliases
 		'dojo': 'empty:',
@@ -8,15 +8,12 @@
 		'dijit': 'empty:',
 		'dojox': 'empty:',
 		// libs
-    'alt': 'vendor/alt/dist/alt.min',
-		'react': 'vendor/react/react.min',
-		'react-dom': 'vendor/react/react-dom.min',
+    'react': 'vendor/react/react.min',
+    'react-motion': 'vendor/react-motion/build/react-motion',
+    'babel-polyfill': 'vendor/babel-polyfill/browser-polyfill',
 		// Configured Packages
-		'js': 'js',
-		'vendor': 'vendor',
-		'stores': 'js/stores',
-    'actions': 'js/actions',
-    'components': 'js/components'
+    'js': 'js',
+    'vendor': 'vendor'
 	},
 	name: 'js/main',
 	out: 'dist/js/main.js'
