@@ -1,8 +1,6 @@
 # react-prerender [![Build Status](https://travis-ci.org/Robert-W/react-prerender.svg?branch=master)](https://travis-ci.org/Robert-W/react-prerender)
 > Simple node script to pre-render react components using AMD modules (commonjs support coming soon). This is designed to be used as a tool in the build process and can run right after Grunt/Gulp or any other build tools you use.
 
-#### Currently only supporting React > 0.14
-
 ### Purpose
 Any application rendering their UI from javascript should pre-render it's UI because of the improved SEO and UX it offers, not just apps with a server component.  This script will attempt to pre-render your React components in node and inject them into your html as part of your build task and focuses on providing helpers for AMD module support. The most difficult part of this process is requiring AMD components in node.  This script aims to help by allowing you to pass in a simple package configuration, so node knows how to find those modules, a list of patterns/modules to ignore, for plugins and hosted modules, props, export names for babel generated AMD modules, and more. Please refer to [Options](#options) for a full list.
 
@@ -10,11 +8,11 @@ Any application rendering their UI from javascript should pre-render it's UI bec
 
 #### Gotchas
 1. Currently only supporting React > `0.14.0`.
-2. Your components render functions cannot use any modules required via requirejs plugins, or cdn/empty modules that are not available at compile time. Modules that are not available in the project's src will trip up this script when it attempts to require your component unless you tell this plugin to remap those modules. However, if they are used in your render function then this will probably not work or will at best render undefined.
+2. Your components render functions cannot use any modules that are not local or are required via requirejs plugins. This script will need to reroute requires for any file that is not local to a file that is (to prevent module not found errors) If any of the modules that are remapped are used in your render function, it may cause errors. See [Remap](#remap).
 3. Common JS support coming soon.
 
 #### Examples
-Below is a full example using almost all of the available options.  The project this configuration is for can be found under `samples/amd`
+Below is a full example using most of the available options.  This configuration is for the project in `samples/amd`
 ```javascript
 var amdDir = path.join(__dirname, '../samples/amd');
 var target = path.join(amdDir, 'index.html');
@@ -73,7 +71,7 @@ reactPrerender({
 
 ### Options
 
-This script exports a single function that takes a single parameter, an options object. Here are all the available options.
+This script exports a single function that takes an options object with the following options.
 
 #### target
 Type: `string`<br>
@@ -87,14 +85,14 @@ Type: `string`<br>
 Default: `none`<br>
 Required: Yes
 
-Path to your component. If you are using amd, this is relative to your baseUrl.
+Path to your component. If using amd, this would be relative to your baseUrl.
 
 #### mount
 Type: `string`<br>
 Default: `none`<br>
 Required: Yes
 
-Simple query string that will be used to locate the dom node to mount the component to. For example, something like `body`, `#root`, or `.react-mount`. Make sure it only matches a single node otherwise the script may inject your component into each match.
+Query string used to locate the dom node that react renders to. For example, something like `body`, `#root`, or `.react-mount`. Make sure it only matches a single node otherwise the script may inject your component into each match.
 
 #### props
 Type: `object`<br>
@@ -112,14 +110,14 @@ If you are using es6 and compiled to AMD, this is the export name of the module 
 ```javascript
 export class App extends React.Component { ... }
 ```
-Then your exportName would be App.
+Then your exportName would be App. If it's a default export then you do not need to provide this.
 
 #### requirejs
 Type: `object`<br>
 Default: `none`<br>
 Required: No
 
-If you are using AMD, you will probably need to include this configuration.  All the options below are part of this object.
+If you are using AMD, you will need to include this configuration with some of the options listed below.
 
 #### requirejs.paths
 Type: `object`<br>
@@ -150,11 +148,11 @@ Type: `string`<br>
 Default: `none`<br>
 Required: No
 
-Full Path to a build profile for requirejs's optimizer (not relative to your baseUrl). This can be an alternative to path's and baseUrl if you have a buildProfile. Just provide the path to it and this will read the path's and baseUrl from there. See `samples/build.js` for an example.
+Full Path to a build profile for requirejs's optimizer (not relative to your baseUrl). This can be an alternative to path's and baseUrl since it will read the path's and baseUrl from the profile. See `samples/build.js` for an example.
 
-#### Remapping plugins or empty modules.
+#### Remap
 
-If you have require calls to modules that are not available until runtime or use plugins, such as `text!template/header.html` then you may need to use the following three options to tell requirejs to ignore those in node.  This will probably be the trickiest part to get right. This is achieved by creating a map object that tells requirejs when those modules are required, require the remapModule instead, which needs to be a module that can resolve all of its dependencies, so no plugins or modules hosted on CDN. If these modules are used in your render function then this plugin will not work for you.
+If you have require calls to modules that are not local or use plugins, such as `text!template/header.html` then you may need to use the following three options to prevent requirejs from throwing a module not found error. This is achieved by creating a map object based on dependencies starting at the `moduleRoot` that reroutes all require calls to files matching `ignorePatterns` to the `remapModule` instead.
 
 #### requirejs.map.moduleRoot
 Type: `string`<br>
