@@ -1,6 +1,6 @@
 {
   "name": "react-prerender",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Simple node script to prerender react components. Designed to be used with AMD modules, even CDN modules not available at compile time.",
   "main": "index.js",
   "scripts": {
